@@ -4,19 +4,42 @@ import StarWarsContext from './StarWarsContext';
 
 function StarWarsProvider({ children }) {
   const api = 'https://swapi-trybe.herokuapp.com/api/planets/';
-  const [data, setApi] = useState([]);
+  const [data, setData] = useState([]);
+  const [newInput, setNewInput] = useState('');
+  const [newData, setNewData] = useState([]);
+  const [filterByName, setSearchFilter] = useState([]);
 
   // DidMount - uma callback e uma lista vazia
   useEffect(() => {
     const planets = async () => {
       const { results } = await fetch(api).then((response) => response.json());
-      setApi(results);
+      setData(results);
+      setNewData(results);
     };
     planets();
   }, []);
+
+  useEffect(() => {
+    const starWarsInput = newData.filter((newDt) => newDt
+      .name.toLowerCase().includes(newInput));
+    setData(starWarsInput);
+    setSearchFilter({ name: newInput });
+  }, [newInput]);
+
+  const handleChangeInput = (target) => {
+    setNewInput(target.value);
+    console.log(target);
+  };
+
+  const totProps = {
+    data,
+    handleChangeInput,
+    newInput,
+    filterByName,
+  };
   return (
     <main>
-      <StarWarsContext.Provider value={ { data } }>
+      <StarWarsContext.Provider value={ totProps }>
         {children}
       </StarWarsContext.Provider>
     </main>
