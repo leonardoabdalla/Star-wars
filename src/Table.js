@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import StarWarsContext from './StarWarsContext';
 
 function Table() {
-  const { data, handleChangeInput, newInput } = useContext(StarWarsContext);
+  const { newData, handleChangeInput, newInput } = useContext(StarWarsContext);
   return (
     <div>
       <input
@@ -33,7 +33,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { data.map((dt, index) => (
+          { newData.map((dt, index) => (
             <tr key={ index }>
               <td>{ dt.name }</td>
               <td>{ dt.rotation_period}</td>
