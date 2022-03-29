@@ -11,6 +11,8 @@ function StarWarsProvider({ children }) {
   const [firstFilter, setFirstFilter] = useState('population');
   const [secondFilter, setSecondFilter] = useState('maior que');
   const [thirdFilter, setThirdFilter] = useState(0);
+  const [colums, setColum] = useState(['population', 'orbital_period',
+    'rotation_period', 'surface_water', 'diameter']);
   // criar um estado para armazenar o nome das colunas já filtradas-criar um array para isso.
   useEffect(() => {
     const planets = async () => {
@@ -36,13 +38,17 @@ function StarWarsProvider({ children }) {
       const thirdFilterCond1 = newData
         .filter((planet) => Number(planet[firstFilter]) > Number(thirdFilter));
       setNewData(thirdFilterCond1);
+      const removeColum = colums.filter((colum) => colum !== firstFilter);
+      setColum(removeColum);
       // salvar o valor do firstFilter no array que for setado no estado que será criado em cada condicional
-      console.log('entrou 1', newData);
+      console.log(removeColum);
     }
     if (secondFilter === 'menor que') {
       const thirdFilterCond2 = newData
         .filter((planet) => Number(planet[firstFilter]) < Number(thirdFilter));
       setNewData(thirdFilterCond2);
+      const removeColum = colums.filter((colum) => colum !== firstFilter);
+      setColum(removeColum);
       // const thirdFilterCond2 = firstFilterConst
       //   .filter((oneFilter) => Number(oneFilter) < Number(thirdFilter));
       // setNewData(thirdFilterCond2);
@@ -51,6 +57,8 @@ function StarWarsProvider({ children }) {
       const thirdFilterCond3 = newData
         .filter((planet) => Number(planet[firstFilter]) === Number(thirdFilter));
       setNewData(thirdFilterCond3);
+      const removeColum = colums.filter((colum) => colum !== firstFilter);
+      setColum(removeColum);
       // const thirdFilterCond3 = firstFilterConst
       //   .filter((oneFilter) => Number(oneFilter) === Number(thirdFilter));
       // setNewData(thirdFilterCond3);
@@ -87,6 +95,12 @@ function StarWarsProvider({ children }) {
     clickConditions();
   };
 
+  const colunas = () => {
+    const totColums = ['population', 'orbital_period',
+      'rotation_period', 'surface_water', 'diameter'];
+    setColum(totColums);
+  };
+
   const totProps = {
     data,
     newData,
@@ -98,6 +112,8 @@ function StarWarsProvider({ children }) {
     hCTFilter,
     hClick,
     thirdFilter,
+    colums,
+    colunas,
   };
   return (
     <main>

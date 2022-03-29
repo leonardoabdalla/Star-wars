@@ -3,7 +3,7 @@ import StarWarsContext from './StarWarsContext';
 
 function NumericFilter() {
   const { hCFFilter, hCSFilter,
-    hCTFilter, hClick, thirdFilter } = useContext(StarWarsContext);
+    hCTFilter, hClick, thirdFilter, colums } = useContext(StarWarsContext);
   return (
     <div>
       <select
@@ -11,12 +11,9 @@ function NumericFilter() {
         type="select"
         onChange={ ({ target }) => hCFFilter(target) }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
-        <option value="diameter">diameter</option>
-
+        {colums.map((colum, index) => (
+          <option key={ index } value={ colum }>{colum}</option>
+        ))}
       </select>
       <select
         data-testid="comparison-filter"
