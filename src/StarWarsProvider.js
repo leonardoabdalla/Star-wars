@@ -22,6 +22,11 @@ function StarWarsProvider({ children }) {
     };
     planets();
   }, []);
+  // const planets = async () => {
+  //   const { results } = await fetch(api);
+  //   const userData = await results.json();
+  //   return userData;
+  //  }
 
   useEffect(() => {
     const starWarsInput = data.filter((newDt) => newDt
